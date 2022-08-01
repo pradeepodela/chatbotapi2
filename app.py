@@ -35,7 +35,7 @@ def api():
         print(f'This is the name: {name}')
         info['name'] = name
         fdata.append(name)
-        fdata.append(datetime.datetime.now())
+        #fdata.append(datetime.datetime.now())
         return jsonify(dumtext)
     elif intent == 'Default Welcome Intent - url':
         print
