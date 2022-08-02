@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify , render_template , redirect , Response , send_file
-from sheets import *
-import datetime
+from update_csv import updater
+
 
 app = Flask(__name__)
 
@@ -63,11 +63,11 @@ def api():
         fdata.append(phno)
         print('+++++++++++++++++++++++++++++++++++++++')
         print(info)
-        insert_data(fdata)
+        updater(info)
         print('+++++++++++++++++++++++++++++++++++++++')
         return jsonify(dumtext)
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True) 
     
