@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify , render_template , redirect , Response , send_file
 from update_csv import updater
-
+import pandas as pd
 
 app = Flask(__name__)
-
+df = pd.read_csv('data.csv')
 info = {}
 fdata = []
 dumtext = {'Card':{
@@ -15,7 +15,28 @@ dumtext = {'Card':{
 
 @app.route('/')
 def index():
-    return '<h1>Hellow</h1>'
+    return render_template('index.html')
+@app.route('/downloadcsv', methods=['GET'])
+def downloadcsv():
+    if request.method=='GET':
+        if loginstat == True:
+            return send_file('data.csv', as_attachment=True)
+                
+        else:
+            return jsonify({'status':'Please Login'})
+
+@app.route('/login', methods=['POST'])
+def login():
+    if request.method=='POST':
+        password = str(request.form['typePasswordX-2'])
+        personid = str(request.form['typeEmailX-2'])
+        if password == '12345' and personid == 'admin':
+            global loginstat
+            loginstat = True
+            return render_template('result.html', tables=[df.to_html()], titles=[''])
+
+        else:
+            return jsonify({'status':'Please Login'})
 
 
 
