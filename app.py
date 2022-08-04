@@ -1,12 +1,27 @@
 from flask import Flask, request, jsonify , render_template , redirect , Response , send_file
 import pandas as pd
-from db import *
+import pyrebase
+# from db import *
 from datetime import date , datetime
 app = Flask(__name__)
 df = pd.read_csv('data.csv')
 info = {}
 dataupdate = {}
 fdata = []
+dflist = []
+dataupdate = {}
+cfg = {
+    'apiKey': "AIzaSyBwRBcKz9DC68UVsMBygkANr_QixS0ZaKA",
+    'authDomain': "mypy-19226.firebaseapp.com",
+    'databaseURL':'https://mypy-19226-default-rtdb.firebaseio.com/',
+    'projectId': "mypy-19226",
+    'storageBucket': "mypy-19226.appspot.com",
+    'messagingSenderId': "990787705081",
+    'appId': "1:990787705081:web:ab15b33b11bbea973dea28",
+    'measurementId': "G-298F64SX86"
+
+}
+
 dumtext = {'Card':{
         'title': '`Title: this is a card title`',
         'text': 'This is the body text of a card.  You can even use line\n  breaks and emoji! 💁',
@@ -24,6 +39,49 @@ struct = {
 
 
     }
+firebase = pyrebase.initialize_app(cfg)
+db = firebase.database()
+auth = firebase.auth()
+Storage = firebase.storage()
+def get_db():
+
+    data = db.child('data').child('leadsinfo').get() 
+
+    for person in data.each():
+        # print('/**//*////**//*/*/*//**/*/*//*/*/*///*/*/*/*/*/*//*/*/*//*/*/*/')
+        # print(person.val())
+        # print(person.key())
+        df = pd.DataFrame(person.val())
+        df = df.T
+        print(df)
+        dflist.append(df)
+    fdf = pd.concat(dflist, ignore_index = True)
+    # print('-----------------------******---------------------------')
+    # print(fdf)
+    fdf.to_csv('data.csv')
+    # print('-----------------------------------------------------')
+#### CREATING YOUR OWN USER ID ######
+def database2(data):
+    
+
+    db.child('data').child('leadsinfo').child(str(datetime.now().strftime("%Y-%m-%d"))).child(str(datetime.now().strftime("%H:%M:%S"))).set(data)
+    print('successfully pushed data')
+    get_db()
+    fdf = pd.concat(dflist, ignore_index = True)
+    # print('-----------------------------------------------------')
+    # print(fdf)
+    # print('-----------------------------------------------------')
+def get_specfic(date):
+    data = db.child('data').child('leadsinfo').child(str(date)).get() 
+    # print('++++++++++++++++++++++++++++++++++++++++++++++++Specfic++++++++++++++++++++++++++++++++++++++++++++++++++++')
+    # print(date)
+    # print(data.val())
+    df = pd.DataFrame(data.val())
+    df = df.T
+    df.reset_index(drop=True, inplace=True)
+    # print(df)
+    
+    return df
 # print(date.today())
 # print(datetime.now())
 # print(dataupdate[str(date.today())][str(datetime.now())])
