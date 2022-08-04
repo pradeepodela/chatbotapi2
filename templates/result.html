@@ -1,21 +1,158 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<title> Table </title>			
-	</head>
 
-	<body>
-		<div align="center">
-			<table>
-				<h1>
-				<!--Displaying the converted table-->
-					{% for table in tables %}
-					<h2>{{titles[loop.index]}}</h2>							
-					{{ table|safe }}
-					{% endfor %}	
-				</h1>
-			</table>
-            <button><a href="/downloadcsv">Download</a></button>
-		</div>
-	</body>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+  </head>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous"
+  />
+  <script
+    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"
+  ></script>
+  <style>
+   .btn-16,
+.btn-16 *,
+.btn-16 :after,
+.btn-16 :before,
+.btn-16:after,
+.btn-16:before {
+  border: 0 solid;
+  box-sizing: border-box;
+}
+.btn-16 {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: button;
+  background-color: #000;
+  background-image: none;
+  color: #fff;
+  cursor: pointer;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-size: 100%;
+  font-weight: 900;
+  line-height: 1.5;
+  margin: 0;
+  -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
+  padding: 0;
+  text-transform: uppercase;
+}
+.btn-16:disabled {
+  cursor: default;
+}
+.btn-16:-moz-focusring {
+  outline: auto;
+}
+.btn-16 svg {
+  display: block;
+  vertical-align: middle;
+}
+.btn-16 [hidden] {
+  display: none;
+}
+.btn-16 {
+  border-radius: 99rem;
+  border-width: 2px;
+  overflow: hidden;
+  padding: 0.8rem 3rem;
+  position: relative;
+  z-index: 0;
+}
+.btn-16 span {
+  mix-blend-mode: difference;
+}
+.btn-16:after,
+.btn-16:before {
+  --tilt: 40px;
+  background: #fff;
+  -webkit-clip-path: polygon(
+    0 0,
+    100% 0,
+    calc(100% - var(--tilt)) 50%,
+    100% 100%,
+    0 100%
+  );
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    calc(100% - var(--tilt)) 50%,
+    100% 100%,
+    0 100%
+  );
+  content: "";
+  display: block;
+  height: 100%;
+  left: -100%;
+  position: absolute;
+  top: 0;
+  transition: transform 0.2s ease;
+  width: 100%;
+}
+.btn-16:after {
+  -webkit-clip-path: polygon(0 0, var(--tilt) 50%, 0 100%, 100% 100%, 100% 0);
+  clip-path: polygon(0 0, var(--tilt) 50%, 0 100%, 100% 100%, 100% 0);
+  left: 100%;
+  z-index: -1;
+}
+.btn-16:hover:before {
+  transform: translateX(calc(50% + var(--tilt)));
+}
+.btn-16:hover:after {
+  transform: translateX(calc(-50% - var(--tilt)));
+}
+.container {
+  height: 200px;
+  position: relative;
+  border: 3px solid green;
+}
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+  </style>
+  <body>
+    <section class="vh-100" style="background-color: #508bfc">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <center><button  class="btn-16"><span><a href="/date">View Specfic Data</a></span></button></center>
+    <br>
+    <center><button  class="btn-16"><span><a href="/viewwhole">View Whole Data</a></span></button></center>
+    <br>
+    <center><button  class="btn-16"><span><a href="/downloadcsv">Download whole Data</a></span></button></center>
+    <br>
+    <center><button class="btn-16"><span><a href="/">Log out</a></span></button></center>
+    <br>
+    
+  </body>
+  </section>
 </html>
+
