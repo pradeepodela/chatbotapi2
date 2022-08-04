@@ -24,8 +24,8 @@ struct = {
 
 
     }
-print(date.today())
-print(datetime.now())
+# print(date.today())
+# print(datetime.now())
 # print(dataupdate[str(date.today())][str(datetime.now())])
 
 #@app.route('/')
